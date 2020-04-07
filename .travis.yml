@@ -1,0 +1,28 @@
+language: java
+jdk: openjdk8
+before_install:
+  - openssl aes-256-cbc -K $encrypted_7d1991f95f61_key -iv $encrypted_7d1991f95f61_iv
+    -in deploy_key.enc -out /tmp/deploy_key -d
+  - eval "$(ssh-agent -s)"
+  - echo -e "Host $DIST_HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - chmod 600 /tmp/deploy_key
+  - ssh-add /tmp/deploy_key
+  - chmod +x gradlew
+deploy:
+  - provider: releases
+    api_key:
+      secure: UfGfMFQsbOY2Mm8f+MOZfyqKQQKgKybnhE9WV5TqDG+15MlKcFb5yJIzJt9ZlpKf28e+H8bbSWHkkcpCj7e8O1r2U31h10P+a0ND2SZpymx19E1FnokrE8c79v0vfiKwDNMKqtUbBSSo6XoeIuqndS5zx03N1rv3RJdeHJF7n5lhwgfXYuzQfUlg1gNFNkBr40fZbLG/ujmjH2rfrLptvbDtMiuhN5Ph0yON1QqP4KfxUrRTgznR5IVCydvHJ9X1ZpWBd/uZZxhgJrWJn4unvRbFOZpL1HKjPhDXh69PtL7QWf9IUAMKxNUKYaLgbsfa33xYCc617jz0asHjdsBTCANl/ZYIl4SQ5ndLWm3fey//e8KouOSh7YtrWYIUs5K62zamMz7PeVaO9rFNvkWPX2sTxkPVytZ68TkIcMbulP9OhhLX8Sb+k5tf8DPysU7Iirc45jR+i2FymSCx3slrNCpKuf1lo171iSvksUUX3GuZfUBbwA/cGFKfQ15BuDEPJub6gIa342/v6h6XKR0xWjnUPAN5oD/Jmh4SUdjuLtj1Mz0RFx54kcq4o2KZ7M+HXpgztn3dZWlGJByBTXz2NSQPyn8FcN8toQnCpWJCsMp8hgUCFdXD6JtH7W7Dafoo5SkD1Zog8RBz8NS8TwjgsP6T8Tf5zxUqNCqmmad49yI=
+    file_glob: true
+    file: build/libs/*
+    skip_cleanup: true
+    on:
+      all_branches: true
+      tags: true
+      repo: xebialabs-community/xlr-release-trigger-api
+  - provider: script
+    skip_cleanup: true
+    script: rsync --update -raz -i $TRAVIS_BUILD_DIR/build/libs/*.jar $DIST_USER@$DIST_HOST:$DIST_PATH/${TRAVIS_REPO_SLUG#*/}/
+    on:
+      all_branches: true
+      tags: true
+      repo: xebialabs-community/xlr-release-trigger-api

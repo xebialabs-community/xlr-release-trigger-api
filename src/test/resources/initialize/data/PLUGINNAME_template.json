@@ -1,0 +1,119 @@
+{
+    "id": "Applications/Release4aff1fdcb27f40b8828b46ee02b3b4c6",
+    "type": "xlrelease.Release",
+    "title": "Plugin Development",
+    "scheduledStartDate": "2019-08-23T13:00:00Z",
+    "flagStatus": "OK",
+    "overdueNotified": false,
+    "maxConcurrentReleases": 100,
+    "releaseTriggers": [],
+    "teams": [
+        {
+            "id": "Applications/Release4aff1fdcb27f40b8828b46ee02b3b4c6/Team79a2211578b347c0bbe5fad7aa6c158b",
+            "type": "xlrelease.Team",
+            "teamName": "Release Admin",
+            "members": [],
+            "roles": [],
+            "permissions": [
+                "release#edit_precondition",
+                "release#edit",
+                "release#reassign_task",
+                "release#edit_security",
+                "release#view",
+                "release#lock_task",
+                "release#start",
+                "release#edit_blackout",
+                "template#view",
+                "release#edit_failure_handler",
+                "release#abort",
+                "release#edit_task"
+            ]
+        },
+        {
+            "id": "Applications/Release4aff1fdcb27f40b8828b46ee02b3b4c6/Teamae28c72a0f0e4ef9b5f7c3604b97211e",
+            "type": "xlrelease.Team",
+            "teamName": "Template Owner",
+            "members": [
+                "admin"
+            ],
+            "roles": [],
+            "permissions": [
+                "template#edit",
+                "template#lock_task",
+                "template#view",
+                "template#edit_triggers",
+                "template#edit_precondition",
+                "template#edit_security",
+                "template#create_release",
+                "template#edit_failure_handler"
+            ]
+        }
+    ],
+    "memberViewers": [],
+    "roleViewers": [],
+    "attachments": [],
+    "phases": [
+        {
+            "id": "Applications/Release4aff1fdcb27f40b8828b46ee02b3b4c6/Phase16af096bb76b407691cf091011b8fc7b",
+            "type": "xlrelease.Phase",
+            "title": "Development",
+            "flagStatus": "OK",
+            "overdueNotified": false,
+            "tasks": [
+                {
+                    "id": "Applications/Release4aff1fdcb27f40b8828b46ee02b3b4c6/Phase16af096bb76b407691cf091011b8fc7b/Task798cc9f6ae5d48609121aa4884b903f6",
+                    "type": "xlrelease.CustomScriptTask",
+                    "title": "Testing MyTask",
+                    "flagStatus": "OK",
+                    "overdueNotified": false,
+                    "comments": [],
+                    "container": "Applications/Release4aff1fdcb27f40b8828b46ee02b3b4c6/Phase16af096bb76b407691cf091011b8fc7b",
+                    "facets": [],
+                    "attachments": [],
+                    "status": "PLANNED",
+                    "waitForScheduledStartDate": true,
+                    "delayDuringBlackout": false,
+                    "postponedDueToBlackout": false,
+                    "hasBeenFlagged": false,
+                    "hasBeenDelayed": false,
+                    "taskFailureHandlerEnabled": false,
+                    "failuresCount": 0,
+                    "variableMapping": {},
+                    "tags": [],
+                    "dueSoonNotified": false,
+                    "locked": false,
+                    "checkAttributes": false,
+                    "watchers": [],
+                    "pythonScript": {
+                        "id": "Applications/Release4aff1fdcb27f40b8828b46ee02b3b4c6/Phase16af096bb76b407691cf091011b8fc7b/Task798cc9f6ae5d48609121aa4884b903f6/PythonScript",
+                        "type": "PLUGINNAME.MyTask",
+                        "customScriptTask": "Applications/Release4aff1fdcb27f40b8828b46ee02b3b4c6/Phase16af096bb76b407691cf091011b8fc7b/Task798cc9f6ae5d48609121aa4884b903f6",
+                        "fileNameList": [],
+                        "failIfFileNotFound": false
+                    },
+                    "keepPreviousOutputPropertiesOnRetry": false
+                }
+            ],
+            "release": "Applications/Release4aff1fdcb27f40b8828b46ee02b3b4c6",
+            "status": "PLANNED",
+            "color": "#0099CC"
+        }
+    ],
+    "queryableStartDate": "2019-08-23T13:00:00Z",
+    "realFlagStatus": "OK",
+    "status": "TEMPLATE",
+    "tags": [],
+    "variables": [],
+    "calendarPublished": false,
+    "tutorial": false,
+    "abortOnFailure": false,
+    "allowConcurrentReleasesFromTrigger": true,
+    "runningTriggeredReleasesCount": 0,
+    "createdFromTrigger": false,
+    "extensions": [],
+    "autoStart": false,
+    "automatedResumeCount": 0,
+    "riskScore": "000",
+    "totalRiskScore": "0000",
+    "riskProfile": "Configuration/riskProfiles/Default risk profile"
+}

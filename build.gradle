@@ -1,0 +1,69 @@
+plugins {
+  id "com.github.hierynomus.license" version "0.14.0"
+  id 'nebula.release' version '11.0.0'
+}
+
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'maven'
+
+// These are used by nebula.release
+if (!project.hasProperty('release.scope')) {
+  project.ext['release.scope'] = 'patch'
+}
+if (!project.hasProperty('release.useLastTag')) {
+  project.ext['release.useLastTag'] = true
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven {
+    url 'https://dist.xebialabs.com/public/maven2'
+  }
+}
+
+test {
+    // auto detected Unit tests only, exclude the end to end integration test
+    exclude '**/*IntegrationTest.class'
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
+}
+
+task itest(type: Test, dependsOn: ['assemble']) {
+    // do not automatically scan for tests
+    scanForTestClasses = false 
+    // explicitly include the integration test
+    include '**/*IntegrationTest.class'
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
+}
+
+dependencies {
+  // Place rest-assured before JUnit dependency to make sure correct Hamcrest is used
+  testCompile 'io.rest-assured:rest-assured:3.2.0'
+  testCompile 'junit:junit:4.11'
+  testCompile 'com.googlecode.json-simple:json-simple:1.1.1'
+  testCompile 'org.assertj:assertj-core:3.6.2'
+  testCompile "org.testcontainers:testcontainers:1.11.3"
+  testCompile 'org.slf4j:slf4j-simple:1.8.0-beta2'
+  testCompile 'org.skyscreamer:jsonassert:1.5.0'
+
+  compile 'com.google.guava:guava:23.0'
+  compile 'org.yaml:snakeyaml:1.24'
+}
+
+license {
+  header rootProject.file('License.md')
+  strictCheck false
+  exclude '**/*.png'
+  exclude '**/*.txt'
+  exclude '**/*.json'
+  exclude '**/*.yml'
+  exclude '**/*.yaml'
+  exclude '**/*.xml'
+  exclude '**/*.properties'
+  ext.year = Calendar.getInstance().get(Calendar.YEAR)
+  ext.name = 'XEBIALABS'
+}
