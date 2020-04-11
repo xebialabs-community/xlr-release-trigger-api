@@ -32,22 +32,42 @@ To create a release, make an HTTP POST request to...
 http://<your xl release>/api/extension/release-trigger
 ```
 
+| Http Headers |    |
+| ------------ | -- |
+| encoding | UTF-8 |
+| content-type | application/json |
+
 The POST body will be a JSON object structured like this...
 
 ```bash
 {
-	"template_name|key": "tempate_name_or_key"
+	"template_name|template_key": "tempate_name_or_key",
+	"title": "release title",
+	"description": "description for release (optional)",
+	"folder_path":"folder path for release (optional)",
+	"scheduledStartDate":"mm/dd/yyyy (optional)",
+	"dueDate":"mm/dd/yyyy (optional)",
+	"owner":"release owner (optional)",
+	"tags":["tag1", "tag2"] (optional),
+	"autoStart":true|false (optional),
 	"<release_variable_name_1>" : "release_variable_value",
 	...
 }
 ```
 
-### Parameters:
+### Parameters
 
 | Parameter Name | Description | Required? |
 | ----------- | ----------- | ----------- |
 | template_name | The name of the template used to create the release. | Either this or 'key' is required. |
-| key           | The key name used to look up the template name.  See below. | Either this or 'template_name' is required. |
+| template_key  | The key name used to look up the template name.  See below. | Either this or 'template_name' is required. |
+| title         | Title for the release | Required |
+| description   | Description for the release | Optional |
+| folder_path   | Full path to folder for release | Optional |
+| scheduledStartDate | Scheduled date for the release as mm/dd/yyyy | Optional |
+| dueDate            | Anticipated due date for the release as mm/dd/yyyy | Optional | owner              | Owner of the release | Optional |
+| tags               | List of tags for the release | Optional |
+| autoStart          | 'true' if you want the release started immediately.  Note the start date becomes today in this case regardless of the scheduledStartDate. | Optional |
 | release variables | Any number of release variable names and values.  See below. | Optional |
 
 ### Using 'template_name' parameter
@@ -74,15 +94,18 @@ The response object is...
 
 ```json
 {
-	"template_id": "template id",
-	"release_id": "id of the created release",
-	"stdout": "",
-	"stderr": "",
-	"exception": null
+	"entity":
+		{
+			"release_id":"Applications/Released7ec97f397284d738506c9d41a1f2c64",
+			"template_id":"Applications/Release3dfc29e6838f438984be0dd69cd2fab4"
+		},
+	"stdout":"",
+	"stderr":"",
+	"exception":null
 }
 ```
 
-The 'template_id' is the XL Release ID for the selected template.  The 'release_id' is the XL Release ID for the generated release.
+The 'template_id' is the XL Release ID for the selected template.  The 'release_id' is the XL Release ID for the generated release.  If an exception was generated as a result of the call, the 'exception' property will have its description.
 
 ## Developers
 
