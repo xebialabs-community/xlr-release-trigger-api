@@ -1,0 +1,10 @@
+{
+  "template_key": "Team One Template",
+	"release_title": "Team One Release Test 1",
+	"description": "This is a Team One Release",
+  "folder_key":"Team One Folder",
+  "var1String": "Var1 string has been set to new value",
+  "var2Number": "5",
+  "var3Boolean": "True",
+  "var4Password": "Secret"
+}

@@ -1,0 +1,65 @@
+{
+  "id": "Applications/Folder1ee657ae74f94d7e87ec581558452e00/Folderc75ed02b091f42b9b06b190d0e7a3625",
+  "type": "xlrelease.Folder",
+  "$token": "9ab72b86-3d68-441f-a367-fa6d2b372021",
+  "title": "Team One",
+  "children": [],
+  "$metadata": {
+    "security": {
+      "permissions": [
+        "folder#edit_variables",
+        "release#edit_precondition",
+        "release#edit",
+        "folder#edit_configuration",
+        "template#edit",
+        "release#edit_security",
+        "group#view",
+        "release#lock_task",
+        "delivery_pattern#view",
+        "group#edit",
+        "template#lock_task",
+        "folder#view",
+        "release#edit_task_script",
+        "release#edit_task_configuration_facet",
+        "release#edit_task_flag",
+        "release#edit_task_dates",
+        "dashboard#view",
+        "release#edit_task",
+        "release#task_transition",
+        "release#edit_task_attachments",
+        "delivery_pattern#edit",
+        "release#reassign_task",
+        "release#edit_task_input_output_properties",
+        "release#edit_task_tags",
+        "delivery#edit",
+        "template#edit_security",
+        "template#create_release",
+        "release#edit_task_description",
+        "release#view",
+        "delivery#view",
+        "delivery#edit_tracked_item",
+        "release#start",
+        "release#edit_blackout",
+        "template#view",
+        "release#edit_failure_handler",
+        "template#edit_triggers",
+        "template#edit_precondition",
+        "dashboard#edit",
+        "folder#edit_security",
+        "release#abort",
+        "folder#edit",
+        "template#edit_failure_handler"
+      ],
+      "teams": [
+        "Template Owner",
+        "Release Admin",
+        "Folder Owner"
+      ]
+    },
+    "folderVariables": {
+      "id": "Applications/Folder1ee657ae74f94d7e87ec581558452e00/Folderc75ed02b091f42b9b06b190d0e7a3625/variables",
+      "type": "xlrelease.FolderVariables",
+      "variables": []
+    }
+  }
+}

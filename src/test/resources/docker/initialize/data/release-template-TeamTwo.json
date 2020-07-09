@@ -1,0 +1,122 @@
+[{
+  "id": "Applications/Release127b3897780a4d0e842712e0e2207071",
+  "type": "xlrelease.Release",
+  "title": "Team Two Simple Script Template",
+  "scheduledStartDate": "2020-05-07T16:00:00Z",
+  "dueDate": "2020-05-21T18:20:05.524Z",
+  "flagStatus": "OK",
+  "overdueNotified": false,
+  "maxConcurrentReleases": 100,
+  "releaseTriggers": [],
+  "teams": [
+    {
+      "id": "Applications/Release127b3897780a4d0e842712e0e2207071/Team700ad2bc1ddd4007b22c4dac9e0e2521",
+      "type": "xlrelease.Team",
+      "teamName": "Release Admin",
+      "members": [],
+      "roles": [],
+      "permissions": [
+        "release#edit_precondition",
+        "release#edit",
+        "release#reassign_task",
+        "release#edit_security",
+        "release#view",
+        "release#lock_task",
+        "release#start",
+        "release#edit_blackout",
+        "template#view",
+        "release#edit_failure_handler",
+        "release#abort",
+        "release#edit_task"
+      ]
+    },
+    {
+      "id": "Applications/Release127b3897780a4d0e842712e0e2207071/Team06bd740d83d34f61876f1e9a0ca306c4",
+      "type": "xlrelease.Team",
+      "teamName": "Template Owner",
+      "members": [
+        "admin"
+      ],
+      "roles": [],
+      "permissions": [
+        "template#edit",
+        "template#lock_task",
+        "template#view",
+        "template#edit_triggers",
+        "template#edit_precondition",
+        "template#edit_security",
+        "template#create_release",
+        "template#edit_failure_handler"
+      ]
+    }
+  ],
+  "memberViewers": [],
+  "roleViewers": [],
+  "attachments": [],
+  "phases": [
+    {
+      "id": "Applications/Release127b3897780a4d0e842712e0e2207071/Phase7e151960afc042788b967f1a92eb25bb",
+      "type": "xlrelease.Phase",
+      "title": "New Phase",
+      "flagStatus": "OK",
+      "overdueNotified": false,
+      "tasks": [
+        {
+          "id": "Applications/Release127b3897780a4d0e842712e0e2207071/Phase7e151960afc042788b967f1a92eb25bb/Task0a0a9454b1d14a929dbb96d332b5415e",
+          "type": "xlrelease.ScriptTask",
+          "title": "scriptTask",
+          "flagStatus": "OK",
+          "overdueNotified": false,
+          "comments": [],
+          "container": "Applications/Release127b3897780a4d0e842712e0e2207071/Phase7e151960afc042788b967f1a92eb25bb",
+          "facets": [],
+          "attachments": [],
+          "status": "PLANNED",
+          "waitForScheduledStartDate": true,
+          "delayDuringBlackout": false,
+          "postponedDueToBlackout": false,
+          "hasBeenFlagged": false,
+          "hasBeenDelayed": false,
+          "taskFailureHandlerEnabled": false,
+          "failuresCount": 0,
+          "variableMapping": {},
+          "tags": [],
+          "dueSoonNotified": false,
+          "locked": false,
+          "checkAttributes": false,
+          "watchers": [],
+          "script": "print(\"Hello There\")\nreleaseVariables[\"testTask2\"] = \"The Script Task for Team Two ran successfully\"",
+          "ignoreScriptVariableInterpolation": false
+        }
+      ],
+      "release": "Applications/Release127b3897780a4d0e842712e0e2207071",
+      "status": "PLANNED"
+    }
+  ],
+  "realFlagStatus": "OK",
+  "status": "TEMPLATE",
+  "tags": [],
+  "variables": [
+    {
+      "id": "Applications/Release127b3897780a4d0e842712e0e2207071/Variabledb3ffbd98a704e4ebc5c01a4058a5617",
+      "type": "xlrelease.StringVariable",
+      "key": "testTask2",
+      "requiresValue": false,
+      "showOnReleaseStart": false
+    }
+  ],
+  "calendarPublished": false,
+  "tutorial": false,
+  "abortOnFailure": false,
+  "allowConcurrentReleasesFromTrigger": true,
+  "runningTriggeredReleasesCount": 0,
+  "createdFromTrigger": false,
+  "scriptUsername": "admin",
+  "scriptUserPassword": "admin",
+  "extensions": [],
+  "autoStart": false,
+  "automatedResumeCount": 0,
+  "riskScore": "000",
+  "totalRiskScore": "0000",
+  "riskProfile": "Configuration/riskProfiles/Default risk profile"
+}]

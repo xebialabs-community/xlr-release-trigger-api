@@ -1,28 +1,16 @@
 language: java
 jdk: openjdk8
-before_install:
-  - openssl aes-256-cbc -K $encrypted_7d1991f95f61_key -iv $encrypted_7d1991f95f61_iv
-    -in deploy_key.enc -out /tmp/deploy_key -d
-  - eval "$(ssh-agent -s)"
-  - echo -e "Host $DIST_HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  - chmod 600 /tmp/deploy_key
-  - ssh-add /tmp/deploy_key
-  - chmod +x gradlew
+notifications:
+  slack:
+    secure: zEpFwp7e5t0dnvd/BX7gFctTB7ZrZ8gFDPMy/fEAP2jaVr2QZ9QMOBaCiHCqeROUQBD6yGG44KmQ9y7YXVIRD2gVBSk8wPVBWyZy7R3ZJZSXzQc/jCWHysOXAc+7Iik5U/8ZBZDN6Nk07g6hrr0Y1b4xhB9j4mQ3g1pL1DzjQycVP1YMUbauslZkPd1vWGBaLVeehge1XeTgoxQrQKFD+MGzaWzUYQbrmXYV5kLslqC4dOotxuUZFPlZOcgg8+l5/RNNCcTnE/AHTn7L0YeZSILdS+0AI3iAzmyyjrGWB5jux+pE4mxpfLSiG4NMYp/nRjsfKSzEHDZq9C0n4yRzgwDYLRBT4jDpPVKLRg/i4pPXKOpUcTUYsh3jwiNZOmg+htkYTMVR7ryVn/b2KMUu8IRz5NtBYwZKLajfcS8SLYscwvxp1OrwGIFScUN0wGqN+My+zqDwtKZ3xNZRU8yzulo0u/HUykm1K91laiobSFA08KjFBcarBr700z8QDdtRloLokxVVZgc8nWD1aKSoLlMbQIhN0IvXgFiN42eloYM/AvSkr3llsFff+7OiZUE2aWEY26RQj6pBC2pij+6oDceKsB1rXaSBueUG7rqJW9DR1Sw5yNtDjbALYtq6LPg47JWxDVfsg/FrySswGtWmLVQ4azqftktd4rU4RSFd7m0=
 deploy:
-  - provider: releases
-    api_key:
-      secure: UfGfMFQsbOY2Mm8f+MOZfyqKQQKgKybnhE9WV5TqDG+15MlKcFb5yJIzJt9ZlpKf28e+H8bbSWHkkcpCj7e8O1r2U31h10P+a0ND2SZpymx19E1FnokrE8c79v0vfiKwDNMKqtUbBSSo6XoeIuqndS5zx03N1rv3RJdeHJF7n5lhwgfXYuzQfUlg1gNFNkBr40fZbLG/ujmjH2rfrLptvbDtMiuhN5Ph0yON1QqP4KfxUrRTgznR5IVCydvHJ9X1ZpWBd/uZZxhgJrWJn4unvRbFOZpL1HKjPhDXh69PtL7QWf9IUAMKxNUKYaLgbsfa33xYCc617jz0asHjdsBTCANl/ZYIl4SQ5ndLWm3fey//e8KouOSh7YtrWYIUs5K62zamMz7PeVaO9rFNvkWPX2sTxkPVytZ68TkIcMbulP9OhhLX8Sb+k5tf8DPysU7Iirc45jR+i2FymSCx3slrNCpKuf1lo171iSvksUUX3GuZfUBbwA/cGFKfQ15BuDEPJub6gIa342/v6h6XKR0xWjnUPAN5oD/Jmh4SUdjuLtj1Mz0RFx54kcq4o2KZ7M+HXpgztn3dZWlGJByBTXz2NSQPyn8FcN8toQnCpWJCsMp8hgUCFdXD6JtH7W7Dafoo5SkD1Zog8RBz8NS8TwjgsP6T8Tf5zxUqNCqmmad49yI=
-    file_glob: true
-    file: build/libs/*
-    skip_cleanup: true
-    on:
-      all_branches: true
-      tags: true
-      repo: xebialabs-community/xlr-release-trigger-api
-  - provider: script
-    skip_cleanup: true
-    script: rsync --update -raz -i $TRAVIS_BUILD_DIR/build/libs/*.jar $DIST_USER@$DIST_HOST:$DIST_PATH/${TRAVIS_REPO_SLUG#*/}/
-    on:
-      all_branches: true
-      tags: true
-      repo: xebialabs-community/xlr-release-trigger-api
+  provider: releases
+  api_key:
+    secure: UlwUVUHP2XbqjnFNwCNymvJ9igUaYH+h1aZHOJJKnlkT5+idcPFG+YAwybx5nCag/RH4qTICCX8WZr7UMJKss4ywd+IPk0L1eqKhlkCMpQY0sh5KZCAEWXsTO5ZZu4lzi7zboHiC7XpN84hHjgK1m4fISrYan8IITFQBOMNeStjaAubagzJuOQwvxLCAbk9g8/7XJPRds0chpYsII4tWBA6ckadDuy0PBY2k3N7Wfpa32ipcXm4jxYRL+SoEZt6wlZqrPEe1SElIK/0xtxmD0CV4p6VMTPGaZOmqdDTIqx3RtIMQjgFbo3DJZHEUuFg2/rNjCVi6y4l9BAN6p8PLn4zwjn+lNt5jSiAvQLgv+ok1JGdqg8Jh8ls/T2DIy/+eDbquJztTec2Ebdqlzeq+OvezU8DgS0PFgn031EUFx6otMAWLsTC+cTwrwgXL7pCaIauWd0KxZ5z9WTN6gHRY2Q5DsJGjkK6dxrhgMUZDKJHJJLsyyA0sU82L6MOKoz5WtQh2QooT/IE5MFq4Iwal4EEXuFG/5/KNqRYBtXZYNF4OEq/4qd3J02qM4KFEF48EoE4aa21Dhe1RYy1lGaH1VAugldExJl0N9g1tcMKDlxEMAXyVxWjbUmRLXtxFT/ILWuesAkaklWwTezqCe6IaUnRHN9jqk5knuGvTIPR2vi8=
+  file_glob: true
+  file: build/libs/*
+  skip_cleanup: true
+  on:
+    all_branches: true
+    tags: true
+    repo: xebialabs-community/xlr-release-trigger-api

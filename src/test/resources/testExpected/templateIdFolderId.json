@@ -1,0 +1,7 @@
+{
+  "${var3Boolean}": "False",
+  "${var1String}": "",
+  "${global.releaseTriggerMap}": "{'Team Two Template': 'Release127b3897780a4d0e842712e0e2207071', 'Team One Template': 'Releasee796ac6d5d0b46b09197d9970884d9cb', 'Team Two Folder': 'Applications/Folder1ee657ae74f94d7e87ec581558452e00/Folder02071484880d45c2a4e6ad2889eae041', 'Team One Folder': 'Applications/Folder1ee657ae74f94d7e87ec581558452e00/Folderc75ed02b091f42b9b06b190d0e7a3625'}",
+  "${testTask1}": "The Script Task for Team One ran successfully",
+  "${var2Number}": "0"
+}

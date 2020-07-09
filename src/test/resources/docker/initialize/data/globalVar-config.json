@@ -1,0 +1,15 @@
+{
+  "id": "Configuration/variables/global/Variable69abd4ccc99d45169f63cf24dfc984d4",
+  "type": "xlrelease.MapStringStringVariable",
+  "key": "global.releaseTriggerMap",
+  "requiresValue": false,
+  "showOnReleaseStart": false,
+  "label": "Release Trigger Map",
+  "description": "Used by Release Trigger Plugin API to map to template IDs and release folder IDs",
+  "value": {
+    "Team Two Template": "Release127b3897780a4d0e842712e0e2207071",
+    "Team Two Folder": "Applications/Folder1ee657ae74f94d7e87ec581558452e00/Folder02071484880d45c2a4e6ad2889eae041",
+    "Team One Template": "Releasee796ac6d5d0b46b09197d9970884d9cb",
+    "Team One Folder": "Applications/Folder1ee657ae74f94d7e87ec581558452e00/Folderc75ed02b091f42b9b06b190d0e7a3625"
+  }
+}

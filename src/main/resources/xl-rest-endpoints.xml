@@ -14,5 +14,7 @@
 <endpoints xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xmlns="http://www.xebialabs.com/deployit/endpoints"
            xsi:schemaLocation="http://www.xebialabs.com/deployit/endpoints endpoints.xsd">
-    <endpoint path="/release-trigger" method="POST" script="release-trigger/post.py" />
+    <endpoint path="/releasetrigger" method="POST" script="releasetrigger/post.py" />
+    <endpoint path="/releasetrigger/start" method="POST" script="releasetrigger/start.py" />
+    <endpoint path="/releasetrigger/create" method="POST" script="releasetrigger/create.py" />
 </endpoints>

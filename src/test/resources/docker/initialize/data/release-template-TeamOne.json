@@ -1,0 +1,154 @@
+[
+  {
+  "id": "Applications/Releasee796ac6d5d0b46b09197d9970884d9cb",
+  "type": "xlrelease.Release",
+  "title": "Team One Simple Script Template",
+  "scheduledStartDate": "2020-05-07T16:00:00Z",
+  "dueDate": "2020-05-21T18:20:05.524Z",
+  "flagStatus": "OK",
+  "overdueNotified": false,
+  "maxConcurrentReleases": 100,
+  "releaseTriggers": [],
+  "teams": [
+    {
+      "id": "Applications/Releasee796ac6d5d0b46b09197d9970884d9cb/Team0ae10402c4544919ad74666542c88905",
+      "type": "xlrelease.Team",
+      "teamName": "Release Admin",
+      "members": [],
+      "roles": [],
+      "permissions": [
+        "release#edit_precondition",
+        "release#edit",
+        "release#reassign_task",
+        "release#edit_security",
+        "release#view",
+        "release#lock_task",
+        "release#start",
+        "release#edit_blackout",
+        "template#view",
+        "release#edit_failure_handler",
+        "release#abort",
+        "release#edit_task"
+      ]
+    },
+    {
+      "id": "Applications/Releasee796ac6d5d0b46b09197d9970884d9cb/Team350d20ca6f634298b1f2f4d2ebd2d3d4",
+      "type": "xlrelease.Team",
+      "teamName": "Template Owner",
+      "members": [
+        "admin"
+      ],
+      "roles": [],
+      "permissions": [
+        "template#edit",
+        "template#lock_task",
+        "template#view",
+        "template#edit_triggers",
+        "template#edit_precondition",
+        "template#edit_security",
+        "template#create_release",
+        "template#edit_failure_handler"
+      ]
+    }
+  ],
+  "memberViewers": [],
+  "roleViewers": [],
+  "attachments": [],
+  "phases": [
+    {
+      "id": "Applications/Releasee796ac6d5d0b46b09197d9970884d9cb/Phase07e2a56e4c3043b699c0a1a2c9cc895d",
+      "type": "xlrelease.Phase",
+      "title": "New Phase",
+      "flagStatus": "OK",
+      "overdueNotified": false,
+      "tasks": [
+        {
+          "id": "Applications/Releasee796ac6d5d0b46b09197d9970884d9cb/Phase07e2a56e4c3043b699c0a1a2c9cc895d/Taske88bffabf6a6419197f0c410691887ba",
+          "type": "xlrelease.ScriptTask",
+          "title": "scriptTask",
+          "flagStatus": "OK",
+          "overdueNotified": false,
+          "comments": [],
+          "container": "Applications/Releasee796ac6d5d0b46b09197d9970884d9cb/Phase07e2a56e4c3043b699c0a1a2c9cc895d",
+          "facets": [],
+          "attachments": [],
+          "status": "PLANNED",
+          "waitForScheduledStartDate": true,
+          "delayDuringBlackout": false,
+          "postponedDueToBlackout": false,
+          "hasBeenFlagged": false,
+          "hasBeenDelayed": false,
+          "taskFailureHandlerEnabled": false,
+          "failuresCount": 0,
+          "variableMapping": {},
+          "tags": [],
+          "dueSoonNotified": false,
+          "locked": false,
+          "checkAttributes": false,
+          "watchers": [],
+          "script": "print(\"Hello There\")\nreleaseVariables[\"testTask1\"] = \"The Script Task for Team One ran successfully\"",
+          "ignoreScriptVariableInterpolation": false
+        }
+      ],
+      "release": "Applications/Releasee796ac6d5d0b46b09197d9970884d9cb",
+      "status": "PLANNED"
+    }
+  ],
+  "realFlagStatus": "OK",
+  "status": "TEMPLATE",
+  "tags": [],
+  "variables": [
+    {
+      "id": "Applications/Releasee796ac6d5d0b46b09197d9970884d9cb/Variabledbcaef58660249d0849628c182042207",
+      "type": "xlrelease.StringVariable",
+      "key": "testTask1",
+      "requiresValue": false,
+      "showOnReleaseStart": false
+    },
+    {
+      "id": "Applications/Releasee796ac6d5d0b46b09197d9970884d9cb/Variable06b156c859d04a2a993e2392f429fd1a",
+      "type": "xlrelease.StringVariable",
+      "key": "var1String",
+      "requiresValue": false,
+      "showOnReleaseStart": false
+    },
+    {
+      "id": "Applications/Releasee796ac6d5d0b46b09197d9970884d9cb/Variableae4908022ac94c0e8381c009f755f717",
+      "type": "xlrelease.IntegerVariable",
+      "key": "var2Number",
+      "requiresValue": false,
+      "showOnReleaseStart": false,
+      "value": 0
+    },
+    {
+      "id": "Applications/Releasee796ac6d5d0b46b09197d9970884d9cb/Variable9f12029b917e424a92e9041b74dfb0fc",
+      "type": "xlrelease.BooleanVariable",
+      "key": "var3Boolean",
+      "requiresValue": false,
+      "showOnReleaseStart": false,
+      "value": false
+    },
+    {
+      "id": "Applications/Releasee796ac6d5d0b46b09197d9970884d9cb/Variable83901c0e97d647699fde45135bc4c7e6",
+      "type": "xlrelease.PasswordStringVariable",
+      "key": "var4Password",
+      "requiresValue": false,
+      "showOnReleaseStart": false
+    }
+  ],
+  "calendarPublished": false,
+  "tutorial": false,
+  "abortOnFailure": false,
+  "allowConcurrentReleasesFromTrigger": true,
+  "runningTriggeredReleasesCount": 0,
+  "createdFromTrigger": false,
+  "scriptUsername": "admin",
+  "scriptUserPassword": "admin",
+  "extensions": [],
+  "autoStart": false,
+  "automatedResumeCount": 0,
+  "riskScore": "000",
+  "totalRiskScore": "0000",
+  "riskProfile": "Configuration/riskProfiles/Default risk profile"
+}
+]

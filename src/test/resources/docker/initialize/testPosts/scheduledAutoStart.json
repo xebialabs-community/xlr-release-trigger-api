@@ -1,0 +1,9 @@
+{
+  "template_key": "Team Two Template",
+	"release_title": "Team Two Release Test 1",
+	"description": "This is a Team Two Release",
+  "folder_key":"Team Two Folder",
+  "autoStart":true,
+  "scheduledStartDate":"06/03/2025"
+}
+

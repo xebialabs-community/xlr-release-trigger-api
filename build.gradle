@@ -8,13 +8,7 @@ apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'maven'
 
-// These are used by nebula.release
-if (!project.hasProperty('release.scope')) {
-  project.ext['release.scope'] = 'patch'
-}
-if (!project.hasProperty('release.useLastTag')) {
-  project.ext['release.useLastTag'] = true
-}
+version = "1.0.0"
 
 repositories {
   mavenLocal()
@@ -24,6 +18,14 @@ repositories {
   }
 }
 
+// These are used by nebula.release
+if (!project.hasProperty('release.scope')) {
+  project.ext['release.scope'] = 'patch'
+}
+if (!project.hasProperty('release.useLastTag')) {
+  project.ext['release.useLastTag'] = true
+}
+
 test {
     // auto detected Unit tests only, exclude the end to end integration test
     exclude '**/*IntegrationTest.class'
@@ -31,7 +33,7 @@ test {
     testLogging.showStandardStreams = true
 }
 
-task itest(type: Test, dependsOn: ['assemble']) {
+task integrationTest(type: Test, dependsOn: ['build']) {
     // do not automatically scan for tests
     scanForTestClasses = false 
     // explicitly include the integration test
@@ -64,6 +66,8 @@ license {
   exclude '**/*.yaml'
   exclude '**/*.xml'
   exclude '**/*.properties'
+  exclude '**/*.pyc'
+  exclude '**/Dockerfile'
   ext.year = Calendar.getInstance().get(Calendar.YEAR)
   ext.name = 'XEBIALABS'
 }

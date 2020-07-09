@@ -10,89 +10,129 @@
 #
 
 from flask import Flask
-from flask import request, Response
+from flask import request
 from flask import make_response
-from werkzeug.exceptions import HTTPException, BadRequest, NotFound
+from flask import jsonify
+from flask import Response
+# import urllib2
+# from base64 import b64encode
+import requests
+import traceback
+import logging
+from werkzeug.exceptions import HTTPException, BadRequest, NotFound, Unauthorized
+from time import strftime
+from logging.handlers import RotatingFileHandler
 from functools import wraps
 import os, io, json
 
+
 app = Flask(__name__)
-
-# These are the username and password we expect 
-expectedUN = "xlr_test"
-expectedPW = "admin"
-
-def getResponse(filename, status="200"):
-    ext = 'txt'
-    content_type = 'text/*'
-    if request.accept_mimetypes['application/json']:
-        ext = 'json'
-        content_type = 'application/json'
-    elif request.accept_mimetypes['application/xml']:
-        ext = 'xml'
-        content_type = 'application/xml'
-    elif request.accept_mimetypes['text/html']:
-        ext = 'html'
-        content_type = 'text/html'
-
-    filePath = "/mockserver/responses/%s.%s" % (filename, ext)
-    if not os.path.isfile(filePath):
-        raise NotFound("Unable to load response file '%s'" % filePath)
-
-    f = io.open(filePath, "r", encoding="utf-8")
-
-    resp = make_response( (f.read(), status) )
-    resp.headers['Content-Type'] = '%s; charset=utf-8' % content_type
-
-    return resp
+handler = RotatingFileHandler('/var/log/plugin.log', maxBytes=1000000, backupCount=1)
+logger_formatter = logging.Formatter('%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s')
+handler.setFormatter(logger_formatter)
+handler.setLevel(logging.DEBUG)
+app.logger.addHandler(handler)
 
 
-def check_auth(username, password):
-    """This function is called to check if a username /
-    password combination is valid.
-    """
-    return username == expectedUN and password == expectedPW
+def getFile( fileName, status="200" ):
+     filePath="/mockserver/responses/%s" % fileName
+     if not os.path.isfile(filePath):
+          app.logger.debug("Cannot find file %s" % fileName)
+          raise NotFound({"code": "response_file_not_found", "description": "Unable to load response file"}, 500)
 
+     f = io.open(filePath, "r", encoding="utf-8")
+     resp = make_response( (f.read(), status) )
+     resp.headers['Content-Type'] = 'application/json; charset=utf-8'
+     return resp
+
+# Error handler
+class AuthError(Exception):
+    def __init__(self, error, status_code):
+        self.error = error
+        self.status_code = status_code
+
+@app.errorhandler(AuthError)
+def handle_auth_error(ex):
+    response = jsonify(ex.error)
+    response.status_code = ex.status_code
+    return response
 
 def requires_auth(f):
-    """
-    Determines if the basic auth is valid
-    """
+    #Determines if the access token is valid
     @wraps(f)
     def decorated(*args, **kwargs):
-        auth = request.authorization
-        if not auth or not check_auth(auth.username, auth.password):
-            """Sends a 401 response that enables basic auth"""
-            return Response(
-                'Could not verify your access level for that URL.\n'
-                'You have to login with proper credentials', 401,
-                {'WWW-Authenticate': 'Basic realm="Login Required"'})
+        token = get_token_auth_header()
+        if token != "YWRtaW46YWRtaW4=": # admin:admin in base64
+          raise Unauthorized()
         return f(*args, **kwargs)
     return decorated
 
+def get_token_auth_header():
+    #Obtains the access token from the Authorization Header
+    auth = request.headers.get("Authorization", None)
+    if not auth:
+        raise AuthError({"code": "authorization_header_missing",
+                        "description": "Authorization header is expected"}, 401)
+    parts = auth.split()
+    if parts[0] != "Basic":
+        raise AuthError({"code": "invalid_header",
+                        "description":
+                            "Authorization header must start with Basic"}, 401)
+    token = parts[1]
+    return token
 
 @app.route('/')
 def index():
-    return "Hello, from the Mockserver!"
+     logRequest(request)
+     return "Hello, World!"
 
 
-@app.route('/<part1>/<endpoint>', methods=['GET'])
+@app.route('/exampleResponse/<exampleVariable>')
 @requires_auth
-def handleRequest(part1, endpoint):
-    return getResponse('%s_%s' % (part1, endpoint))
+def get_exampleResponse(exampleVariable):
+     logRequest(request)
+     app.logger.debug("The Example Variable is %s" % exampleVariable)
+     return getFile("exampleResponse.json")
 
-
-@app.route('/<part1>/<part2>/<endpoint>', methods=['GET'])
+@app.route('/exampleFileNotFound')
 @requires_auth
-def handleRequest(part1, part2, endpoint):
-    return getResponse('%s_%s_%s' % (part1, part2, endpoint))
+def get_exampleFileNotFound(exampleVariable):
+     logRequest(request)
+     return getFile("exampleResponseNotFound.json")
 
 
-@app.route('/<part1>/<part2>/<part3>/<endpoint>', methods=['GET'])
-@requires_auth
-def handleRequest(part1, part2, part3, endpoint):
-    return getResponse('%s_%s_%s_%s' % (part1, part2, part3, endpoint))
+
+# Use for detailed request debug
+def logRequest(request):
+     app.logger.debug("**************** LOGGING REQUEST")
+     app.logger.debug("request.url=%s" % request.url)
+     app.logger.debug("request.headers=%s" % request.headers )
+     if request.json:
+          app.logger.debug("request.json=%s" % request.json)
+     else:
+          app.logger.debug("request.data=%s" % request.data)
+     app.logger.debug("request.form=%s" % request.form)
+     app.logger.debug("****************")
+
+# Added for debug purposes - logging all requests
+@app.route("/json")
+def get_json():
+    data = {"Name":"Some Name","Books":"[Book1, Book2, Book3]"}
+    return jsonify(data_WRONG) # INTENTIONAL ERROR FOR TRACEBACK EVENT
+
+@app.after_request
+def after_request(response):
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    app.logger.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+    return response
+
+@app.errorhandler(Exception)
+def exceptions(e):
+    tb = traceback.format_exc()
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    app.logger.error('%s %s %s %s %s 5xx INTERNAL SERVER ERROR\n%s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, tb)
+    return e
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+     app.run()
