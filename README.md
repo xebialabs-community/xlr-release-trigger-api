@@ -233,7 +233,7 @@ Build and package the plugins with...
 
 ### To run integration tests
 
-1. Clone this git project to your local dev environment
+1. Clone this github project to your local dev environment
 2. You will need to have Docker and Docker Compose installed.
 3. The XL-Release docker image uses the community trial license
 4. Open a terminal in the root of the xlr-variable-setter-plugin project and run the following gradle task 
