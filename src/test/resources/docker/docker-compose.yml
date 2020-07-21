@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   xl-release:
-    image: xebialabs/xl-release:9.6
+    image: xebialabs/xl-release:9.7
     ports:
       - "15516:5516"
     environment:
